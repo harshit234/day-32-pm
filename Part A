@@ -33,3 +33,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 print(f"Data Generated: {n_records} records.")
 print(f"Fraud Distribution: {y.value_counts(normalize=True)[1]:.2%}")
 display(df_insurance.head())
+
+
+dt_fraud = DecisionTreeClassifier(max_depth=5, random_state=42)
+dt_fraud.fit(X_train, y_train)
+
+rules = export_text(dt_fraud, feature_names=list(X.columns))
+print("Decision Tree Rules (Top Fraud Indicators):")
+print(rules[:1000]) 
