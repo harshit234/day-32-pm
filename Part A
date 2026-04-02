@@ -56,3 +56,25 @@ rf_random.fit(X_train, y_train)
 
 best_rf = rf_random.best_estimator_
 print(f"Best RF Params (Optimized for Recall): {rf_random.best_params_}")
+
+dt_preds = dt_fraud.predict(X_test)
+rf_preds = best_rf.predict(X_test)
+
+metrics = {
+    'Metric': ['Accuracy', 'Precision', 'Recall', 'F1-Score'],
+    'Decision Tree': [
+        accuracy_score(y_test, dt_preds),
+        precision_score(y_test, dt_preds),
+        recall_score(y_test, dt_preds),
+        f1_score(y_test, dt_preds)
+    ],
+    'Random Forest': [
+        accuracy_score(y_test, rf_preds),
+        precision_score(y_test, rf_preds),
+        recall_score(y_test, rf_preds),
+        f1_score(y_test, rf_preds)
+    ]
+}
+
+comparison_df = pd.DataFrame(metrics)
+display(comparison_df)
